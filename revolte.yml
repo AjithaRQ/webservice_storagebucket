@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Simlabs
-  appName: s3-app-new
+  project: phone pro
+  appName: phone pro app
   env:
     staging:
       branch: main
@@ -26,7 +26,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: buck-nio-2
+            bucketName: kitkat-monday-buck2
             versioningStatus: enabled
             public: true
     qa:
@@ -35,7 +35,7 @@ revolte:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: app.js
           properties:
             health: /health
             port: 8080
@@ -57,9 +57,22 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-buck-abc-1
+            bucketName: kitkat-monday-buck1
             versioningStatus: enabled
             public: true
+            corsRules:
+              - id: Rule1
+                methods:
+                  - GET
+                  - PUT
+                  - POST
+                  - HEAD
+                  - DELETE
+                allowedHeaders:
+                  - '*'
+                origins:
+                  - '*'
+                maxAgeSeconds: 300
     production:
       branch: main
       services:
@@ -87,7 +100,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: buck-iop-3
+            bucketName: kitkat-monday-buck4
             versioningStatus: enabled
             public: true
     preview:
@@ -112,6 +125,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: buck-iop-4
+            bucketName: kitkat-monday-buck3
             versioningStatus: enabled
             public: true
