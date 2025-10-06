@@ -1,10 +1,21 @@
 revolte:
   version: '1.0'
-  project: phone pro
-  appName: phone pro app
+  project: PAMS
+  appName: app-check-s3
+  config:
+    codeReview:
+      summarize: true
+      suggestFixes: false
+      commentStyle: Balanced
+    codeQuality:
+      codeStyle:
+        rules:
+          typescript/adjacentOverloadSignatures: error
   env:
     staging:
       branch: main
+      codeReview: true
+      codeQuality: true
       services:
         rid_1:
           type: WEB_SERVICE
@@ -20,15 +31,28 @@ revolte:
               REGION: '#{storage_bucket_service.region}'
           specifications:
             cpu: 2
-            memory: 1
+            memory: 2
             storage: 30
         rid_2:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday-buck2
+            bucketName: kitkat-monday2-buck2
             versioningStatus: enabled
-            public: true
+            public: false
+            corsRules:
+              - id: Rule1
+                methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - HEAD
+                allowedHeaders:
+                  - '*'
+                origins:
+                  - https://breezy-amaranth-smelt.injured-brown.poddleops.com/
+                maxAgeSeconds: 300
     qa:
       branch: main
       services:
@@ -57,7 +81,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday-buck1
+            bucketName: kitkat-monday2-buck1
             versioningStatus: enabled
             public: true
             corsRules:
@@ -100,7 +124,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday-buck4
+            bucketName: kitkat-monday2-buck4
             versioningStatus: enabled
             public: true
     preview:
