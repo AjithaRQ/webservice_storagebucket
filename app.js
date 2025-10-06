@@ -22,7 +22,7 @@ app.get("/health", function (req, res) {
 });
  
 // Launch listening server on port 8081
-app.listen(3000, function () {
+app.listen(8080, function () {
   console.log("app listening on port 8080");
 });
  
