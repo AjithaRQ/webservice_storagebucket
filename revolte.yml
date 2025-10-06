@@ -149,6 +149,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday-buck3
+            bucketName: kitkat-monday2-buck3
             versioningStatus: enabled
             public: true
