@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: PAMS
-  appName: app-check-s3
+  project: Octo-code
+  appName: OCTO S3
   config:
     codeReview:
       summarize: true
@@ -10,7 +10,7 @@ revolte:
     codeQuality:
       codeStyle:
         rules:
-          typescript/adjacentOverloadSignatures: error
+          javascript/arrayCallbackReturn: error
   env:
     staging:
       branch: main
@@ -37,7 +37,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday2-buck2
+            bucketName: kitkat-tuesday-buck2
             versioningStatus: enabled
             public: false
             corsRules:
@@ -55,6 +55,8 @@ revolte:
                 maxAgeSeconds: 300
     qa:
       branch: main
+      codeReview: false
+      codeQuality: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -81,7 +83,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday2-buck1
+            bucketName: kitkat-tuesday-buck1
             versioningStatus: enabled
             public: true
             corsRules:
@@ -99,6 +101,8 @@ revolte:
                 maxAgeSeconds: 300
     production:
       branch: main
+      codeReview: true
+      codeQuality: true
       services:
         rid_1:
           type: WEB_SERVICE
@@ -124,10 +128,25 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday2-buck4
-            versioningStatus: enabled
-            public: true
+            bucketName: kitkat-tuesday-buck4
+            versioningStatus: suspended
+            public: false
+            corsRules:
+              - id: Rule 2
+                methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - HEAD
+                allowedHeaders:
+                  - '*'
+                origins:
+                  - '*'
+                maxAgeSeconds: 100
     preview:
+      codeReview: false
+      codeQuality: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -149,6 +168,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-monday2-buck3
+            bucketName: kitkat-tuesday-buck3
             versioningStatus: enabled
             public: true
