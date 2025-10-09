@@ -1,16 +1,7 @@
 revolte:
   version: '1.0'
-  project: Potrait
-  appName: potrait-app-s3
-  config:
-    codeReview:
-      summarize: true
-      suggestFixes: true
-      commentStyle: Balanced
-    codeQuality:
-      codeStyle:
-        rules:
-          typescript/adjacentOverloadSignatures: error
+  project: Hopscotch
+  appName: storage bucket
   env:
     staging:
       branch: main
