@@ -1,0 +1,160 @@
+revolte:
+  version: '1.0'
+  project: Potrait
+  appName: potrait-app-s3
+  config:
+    codeReview:
+      summarize: true
+      suggestFixes: true
+      commentStyle: Balanced
+    codeQuality:
+      codeStyle:
+        rules:
+          typescript/adjacentOverloadSignatures: error
+  env:
+    staging:
+      branch: main
+      codeReview: false
+      codeQuality: false
+      testSuite: false
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
+              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
+              REGION: '#{storage_bucket_service.region}'
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: STORAGE_BUCKET
+          name: storage_bucket_service
+          configurations:
+            bucketName: kitkat-oct9-1-staging
+            versioningStatus: enabled
+            public: true
+    qa:
+      branch: main
+      codeReview: true
+      codeQuality: true
+      testSuite: false
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
+              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
+              REGION: '#{storage_bucket_service.region}'
+          insights:
+            cpu:
+              - cpu_time_idle
+              - cpu_time_user
+              - cpu_time_system
+            swap:
+              - swap_used
+            mem:
+              - mem_total
+              - mem_free
+            disk:
+              - disk_used
+              - disk_total
+              - disk_free
+          specifications:
+            cpu: 2
+            memory: 2
+            storage: 30
+        rid_2:
+          type: STORAGE_BUCKET
+          name: storage_bucket_service
+          configurations:
+            bucketName: kitkat-oct9-1-qa
+            versioningStatus: enabled
+            public: true
+            corsRules:
+              - id: Rule A
+                methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - HEAD
+                allowedHeaders:
+                  - '*'
+                origins:
+                  - '*'
+                maxAgeSeconds: 100
+    production:
+      branch: main
+      codeReview: false
+      codeQuality: false
+      testSuite: false
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
+              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
+              REGION: '#{storage_bucket_service.region}'
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+            autoScaling:
+              replica:
+                min: 1
+                max: 1
+        rid_2:
+          type: STORAGE_BUCKET
+          name: storage_bucket_service
+          configurations:
+            bucketName: kitkat-oct9-1-production
+            versioningStatus: enabled
+            public: true
+    preview:
+      codeReview: false
+      codeQuality: false
+      testSuite: false
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: app.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
+              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
+              REGION: '#{storage_bucket_service.region}'
+          specifications:
+            cpu: 2
+            memory: 1
+            storage: 30
+        rid_2:
+          type: STORAGE_BUCKET
+          name: storage_bucket_service
+          configurations:
+            bucketName: kitkat-oct9-1-preview
+            versioningStatus: enabled
+            public: true
