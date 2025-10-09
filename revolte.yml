@@ -5,9 +5,6 @@ revolte:
   env:
     staging:
       branch: main
-      codeReview: false
-      codeQuality: false
-      testSuite: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -29,14 +26,11 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-staging
+            bucketName: kitkat-oct9-1-staging2
             versioningStatus: enabled
             public: true
     qa:
       branch: main
-      codeReview: true
-      codeQuality: true
-      testSuite: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -72,7 +66,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-qa
+            bucketName: kitkat-oct9-1-qa4
             versioningStatus: enabled
             public: true
             corsRules:
@@ -90,9 +84,6 @@ revolte:
                 maxAgeSeconds: 100
     production:
       branch: main
-      codeReview: false
-      codeQuality: false
-      testSuite: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -118,13 +109,10 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-production
+            bucketName: kitkat-oct9-1-production3
             versioningStatus: enabled
             public: true
     preview:
-      codeReview: false
-      codeQuality: false
-      testSuite: false
       services:
         rid_1:
           type: WEB_SERVICE
@@ -146,6 +134,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-preview
+            bucketName: kitkat-oct9-1-preview1
             versioningStatus: enabled
             public: true
