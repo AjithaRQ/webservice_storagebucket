@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Hopscotch
-  appName: storage bucket
+  project: Fun Four
+  appName: s3-test
   env:
     staging:
       branch: main
@@ -26,9 +26,9 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-staging2
+            bucketName: s3-test-appcheck-staging
             versioningStatus: enabled
-            public: true
+            public: false
     qa:
       branch: main
       services:
@@ -44,20 +44,6 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
-          insights:
-            cpu:
-              - cpu_time_idle
-              - cpu_time_user
-              - cpu_time_system
-            swap:
-              - swap_used
-            mem:
-              - mem_total
-              - mem_free
-            disk:
-              - disk_used
-              - disk_total
-              - disk_free
           specifications:
             cpu: 2
             memory: 2
@@ -66,22 +52,9 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-qa4
+            bucketName: s3-test-appcheck-qa
             versioningStatus: enabled
-            public: true
-            corsRules:
-              - id: Rule A
-                methods:
-                  - GET
-                  - POST
-                  - PUT
-                  - DELETE
-                  - HEAD
-                allowedHeaders:
-                  - '*'
-                origins:
-                  - '*'
-                maxAgeSeconds: 100
+            public: false
     production:
       branch: main
       services:
@@ -109,9 +82,9 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-production3
+            bucketName: s3-test-appcheck-production
             versioningStatus: enabled
-            public: true
+            public: false
     preview:
       services:
         rid_1:
@@ -134,6 +107,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: kitkat-oct9-1-preview1
+            bucketName: s3-test-appcheck-preview
             versioningStatus: enabled
-            public: true
+            public: false
