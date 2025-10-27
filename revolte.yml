@@ -56,7 +56,7 @@ revolte:
             versioningStatus: enabled
             public: false
             corsRules:
-              - id: Rule1
+              - id: ''
                 methods:
                   - HEAD
                 origins:
