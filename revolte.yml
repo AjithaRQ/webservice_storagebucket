@@ -58,7 +58,7 @@ revolte:
             corsRules:
               - id: Rule1
                 methods:
-                  - OPTIONS
+                  - HEAD
                 origins:
                   - '*'
     production:
