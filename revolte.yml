@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Fun Four
-  appName: s3-test
+  project: Dracarys
+  appName: s3-app
   env:
     staging:
       branch: main
@@ -55,6 +55,12 @@ revolte:
             bucketName: s3-test-appcheck-qa
             versioningStatus: enabled
             public: false
+            corsRules:
+              - id: Rule1
+                methods:
+                  - OPTIONS
+                origins:
+                  - '*'
     production:
       branch: main
       services:
