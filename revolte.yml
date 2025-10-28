@@ -1,15 +1,52 @@
 revolte:
   version: '1.0'
-  project: Dracarys
-  appName: s3-app
+  project: Tuesday
+  appName: s3-cache
   env:
     staging:
+      branch: cache-test
+      services:
+        rid_1:
+          type: WEB_SERVICE
+          name: web_service
+          entryPoint: index.js
+          properties:
+            health: /health
+            port: 8080
+            variables:
+              BASE_URL: /api/v1
+              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
+              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
+              REGION: '#{storage_bucket_service.region}'
+          insights:
+            cpu:
+              - cpu_time_user
+              - cpu_time_idle
+              - cpu_time_system
+          specifications:
+            cpu: 2
+            memory: 2
+            storage: 30
+        rid_2:
+          type: STORAGE_BUCKET
+          name: storage_bucket_service
+          configurations:
+            bucketName: tuesday-s3-cache-staging
+            versioningStatus: enabled
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache_service
+          specifications:
+            cpu: 2
+            memory: 0.5
+    qa:
       branch: main
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: app.js
+          entryPoint: index.js
           properties:
             health: /health
             port: 8080
@@ -26,48 +63,22 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-staging
+            bucketName: tuesday-s3-cache-qa
             versioningStatus: enabled
-            public: false
-    qa:
-      branch: main
-      services:
-        rid_1:
-          type: WEB_SERVICE
-          name: web_service
-          entryPoint: app.js
-          properties:
-            health: /health
-            port: 8080
-            variables:
-              BASE_URL: /api/v1
-              ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
-              SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
-              REGION: '#{storage_bucket_service.region}'
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache_service
           specifications:
             cpu: 2
-            memory: 2
-            storage: 30
-        rid_2:
-          type: STORAGE_BUCKET
-          name: storage_bucket_service
-          configurations:
-            bucketName: s3-test-appcheck-qa
-            versioningStatus: enabled
-            public: false
-            corsRules:
-              - id: ''
-                methods:
-                  - HEAD
-                origins:
-                  - '*'
+            memory: 0.5
     production:
       branch: main
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: app.js
+          entryPoint: index.js
           properties:
             health: /health
             port: 8080
@@ -88,15 +99,22 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-production
+            bucketName: tuesday-s3-cache-production
             versioningStatus: enabled
-            public: false
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache_service
+          specifications:
+            cpu: 2
+            memory: 0.5
+            replica: 1
     preview:
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: app.js
+          entryPoint: index.js
           properties:
             health: /health
             port: 8080
@@ -113,6 +131,12 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-preview
+            bucketName: tuesday-s3-cache-preview
             versioningStatus: enabled
-            public: false
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache_service
+          specifications:
+            cpu: 2
+            memory: 0.5
