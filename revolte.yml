@@ -1,15 +1,15 @@
 revolte:
   version: '1.0'
-  project: Tuesday
-  appName: s3-cache
+  project: Techno-vault
+  appName: s3check
   env:
     staging:
-      branch: cache-test
+      branch: main
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: bucketController.js
           properties:
             health: /health
             port: 8080
@@ -18,25 +18,23 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
-          insights:
-            cpu:
-              - cpu_time_user
-              - cpu_time_idle
-              - cpu_time_system
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 2
+            memory: 1
             storage: 30
         rid_2:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: tuesday-s3-cache-staging
+            bucketName: s3-check29-cache-staging
             versioningStatus: enabled
             public: true
         rid_3:
           type: CACHE
-          name: cache_service
+          name: cache
           specifications:
             cpu: 2
             memory: 0.5
@@ -46,7 +44,7 @@ revolte:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: bucketController.js
           properties:
             health: /health
             port: 8080
@@ -55,6 +53,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -63,22 +64,22 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: tuesday-s3-cache-qa
+            bucketName: s3-check29-cache-qa
             versioningStatus: enabled
             public: true
         rid_3:
           type: CACHE
-          name: cache_service
+          name: cache
           specifications:
             cpu: 2
             memory: 0.5
     production:
-      branch: main
+      branch: cache-test
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: bucketController.js
           properties:
             health: /health
             port: 8080
@@ -87,9 +88,12 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 1
+            memory: 2
             storage: 30
             autoScaling:
               replica:
@@ -99,22 +103,22 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: tuesday-s3-cache-production
+            bucketName: s3-check29-cache-production
             versioningStatus: enabled
             public: true
         rid_3:
           type: CACHE
-          name: cache_service
+          name: cache
           specifications:
             cpu: 2
             memory: 0.5
-            replica: 1
+            replica: 2
     preview:
       services:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: index.js
+          entryPoint: bucketController.js
           properties:
             health: /health
             port: 8080
@@ -123,6 +127,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -131,12 +138,12 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: tuesday-s3-cache-preview
+            bucketName: s3-check29-cache-preview
             versioningStatus: enabled
             public: true
         rid_3:
           type: CACHE
-          name: cache_service
+          name: cache
           specifications:
             cpu: 2
             memory: 0.5
