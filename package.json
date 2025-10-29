@@ -14,7 +14,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.918.0",
+    "@aws-sdk/client-s3": "^3.919.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "multer": "^2.0.2",
     "redis": "^5.9.0"

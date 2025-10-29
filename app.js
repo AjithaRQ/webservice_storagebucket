@@ -1,13 +1,18 @@
 // Load express module using `require` directive
  
 // import multer from "multer";
+import { createRedisClient } from "./config/redisClient.js";
 import { S3Client, PutObjectCommand,GetObjectCommand } from "@aws-sdk/client-s3";
 // import fs from "fs";
 import express from "express";
+import cors from "cors";
 import { pipeline } from "stream";
 import { promisify } from "util";
  
-let app = express();
+//let app = express();
+const app = express();
+app.use(cors());
+app.use(express.json());
 // Define request response in root URL (/)
 app.get("/", function (req, res) {
   res.send("Dockerize the node app");
@@ -18,12 +23,32 @@ app.get("/health", function (req, res) {
   res.json({
     app2: true,
     success: true,
-  });
+    status: "OK", redis: redis?.isOpen || false 
+  });///
 });
  
 // Launch listening server on port 8081
 app.listen(8080, function () {
   console.log("app listening on port 8080");
+});
+
+// ✅ Initialize Redis when server starts
+let redis;
+(async () => {
+  redis = await createRedisClient();
+  if (redis?.isOpen) console.log("🚀 Redis ready for caching!");
+})();
+
+// --- Redis Test Endpoint ---
+app.get("/cache-test", async (req, res) => {
+  try {
+    await redis.set("message", "Hello from Redis + S3 App!", { EX: 60 });
+    const message = await redis.get("message");
+    res.json({ success: true, message });
+  } catch (error) {
+    console.error("Redis test failed:", error);
+    res.status(500).json({ success: false, error: "Redis connection failed" });
+  }
 });
  
 // Promisify pipeline for easier async/await
