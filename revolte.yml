@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Dracarys
-  appName: s3-app
+  project: Jiofiber
+  appName: bucket
   env:
     staging:
       branch: main
@@ -26,7 +26,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-staging
+            bucketName: s3-test-jiofiber-staging
             versioningStatus: enabled
             public: false
     qa:
@@ -52,7 +52,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-qa
+            bucketName: s3-test-jiofiber-qa
             versioningStatus: enabled
             public: false
             corsRules:
@@ -88,7 +88,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-production
+            bucketName: s3-test-jiofiber-production
             versioningStatus: enabled
             public: false
     preview:
@@ -113,6 +113,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-appcheck-preview
+            bucketName: s3-test-jiofiber-preview
             versioningStatus: enabled
             public: false
