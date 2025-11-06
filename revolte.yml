@@ -4,7 +4,7 @@ revolte:
   appName: twsitedapp
   env:
     staging:
-      branch: main
+      branch: cache-new
       services:
         rid_1:
           type: WEB_SERVICE
@@ -18,6 +18,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -26,11 +29,17 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-twisted-staging
+            bucketName: linear-s3-staging
             versioningStatus: enabled
             public: true
+        rid_3:
+          type: CACHE
+          name: cache
+          specifications:
+            cpu: 2
+            memory: 0.5
     qa:
-      branch: main
+      branch: cache-new
       services:
         rid_1:
           type: WEB_SERVICE
@@ -44,6 +53,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 2
@@ -52,11 +64,17 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-twisted-qa
+            bucketName: linear-s3-qa
             versioningStatus: enabled
-            public: false
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache
+          specifications:
+            cpu: 2
+            memory: 0.5
     production:
-      branch: main
+      branch: cache-test
       services:
         rid_1:
           type: WEB_SERVICE
@@ -70,6 +88,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -82,9 +103,16 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-twisted-production
+            bucketName: linear-s3-prod
             versioningStatus: enabled
-            public: false
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache
+          specifications:
+            cpu: 2
+            memory: 0.5
+            replica: 1
     preview:
       services:
         rid_1:
@@ -99,6 +127,9 @@ revolte:
               ACCESS_KEY_ID: '#{storage_bucket_service.accessKeyId}'
               SECRET_ACCESS_KEY_ID: '#{storage_bucket_service.secretAccessKeyId}'
               REGION: '#{storage_bucket_service.region}'
+              CACHE_HOST: '#{cache.cacheHost}'
+              CACHE_PORT: '#{cache.cachePort}'
+              CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
             memory: 1
@@ -107,6 +138,12 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-twisted-preview
+            bucketName: linear-s3-preview
             versioningStatus: enabled
-            public: false
+            public: true
+        rid_3:
+          type: CACHE
+          name: cache
+          specifications:
+            cpu: 2
+            memory: 0.5
