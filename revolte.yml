@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Linear
-  appName: storgaebucket
+  project: twisted
+  appName: twsitedapp
   env:
     staging:
       branch: main
@@ -26,7 +26,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-linear-staging
+            bucketName: s3-test-twisted-staging
             versioningStatus: enabled
             public: false
     qa:
@@ -52,15 +52,9 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-linear-qa
+            bucketName: s3-test-twisted-qa
             versioningStatus: enabled
             public: false
-            corsRules:
-              - id: ''
-                methods:
-                  - HEAD
-                origins:
-                  - '*'
     production:
       branch: main
       services:
@@ -88,7 +82,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-linear-production
+            bucketName: s3-test-twisted-production
             versioningStatus: enabled
             public: false
     preview:
@@ -113,6 +107,6 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: s3-test-linear-preview
+            bucketName: s3-test-twisted-preview
             versioningStatus: enabled
             public: false
