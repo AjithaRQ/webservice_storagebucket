@@ -28,7 +28,7 @@ revolte:
           configurations:
             bucketName: s3-test-twisted-staging
             versioningStatus: enabled
-            public: false
+            public: true
     qa:
       branch: main
       services:
