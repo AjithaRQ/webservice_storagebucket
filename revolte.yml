@@ -23,13 +23,13 @@ revolte:
               CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 1
+            memory: 2
             storage: 30
         rid_2:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-staging
+            bucketName: twistedapp-s3-staging
             versioningStatus: enabled
             public: true
         rid_3:
@@ -64,7 +64,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-qa
+            bucketName: twistedapp-s3-qa
             versioningStatus: enabled
             public: true
         rid_3:
@@ -79,7 +79,7 @@ revolte:
         rid_1:
           type: WEB_SERVICE
           name: web_service
-          entryPoint: bucketController.js
+          entryPoint: app.js
           properties:
             health: /health
             port: 8080
@@ -93,7 +93,7 @@ revolte:
               CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 1
+            memory: 2
             storage: 30
             autoScaling:
               replica:
@@ -103,7 +103,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-prod
+            bucketName: twistedapp-s3-prod
             versioningStatus: enabled
             public: true
         rid_3:
@@ -138,7 +138,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-preview
+            bucketName: twistedapp-s3-preview
             versioningStatus: enabled
             public: true
         rid_3:
