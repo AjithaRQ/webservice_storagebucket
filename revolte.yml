@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Linear
-  appName: storgaebucket
+  project: twisted
+  appName: twsitedapp
   env:
     staging:
       branch: cache-new
