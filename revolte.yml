@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: twisted
-  appName: twsitedapp
+  project: SAPS
+  appName: storagebuckert
   env:
     staging:
       branch: cache-new
@@ -29,7 +29,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-staging
+            bucketName: funfriday-s3-staging
             versioningStatus: enabled
             public: true
         rid_3:
@@ -39,7 +39,7 @@ revolte:
             cpu: 2
             memory: 0.5
     qa:
-      branch: cache-new
+      branch: main
       services:
         rid_1:
           type: WEB_SERVICE
@@ -64,9 +64,18 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-qa
+            bucketName: funfriday-s3-qa
             versioningStatus: enabled
-            public: true
+            public: false
+            corsRules:
+              - id: '1'
+                methods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                origins:
+                  - '*'
         rid_3:
           type: CACHE
           name: cache
@@ -103,7 +112,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-prod
+            bucketName: funfriday-s3-prod
             versioningStatus: enabled
             public: true
         rid_3:
@@ -138,7 +147,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: linear-s3-preview
+            bucketName: funfriday-s3-preview
             versioningStatus: enabled
             public: true
         rid_3:
