@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
-  project: Magma Backend
-  appName: storgaebucket
+  project: Inspirata
+  appName: storagebucket
   env:
     staging:
       branch: cache-new
@@ -41,7 +41,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: magma-s3-staging
+            bucketName: inspirata-s3-staging
             versioningStatus: enabled
             public: true
             corsRules:
@@ -78,6 +78,11 @@ revolte:
               CACHE_HOST: '#{cache.cacheHost}'
               CACHE_PORT: '#{cache.cachePort}'
               CACHE_PASSWORD: '#{cache.cachePassword}'
+          insights:
+            cpu:
+              - cpu_time_idle
+              - cpu_time_user
+              - cpu_time_system
           specifications:
             cpu: 2
             memory: 2
@@ -86,9 +91,17 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: magma-s3-qa
+            bucketName: inspirata-s3-qa
             versioningStatus: enabled
             public: true
+            corsRules:
+              - id: '1'
+                methods:
+                  - GET
+                  - POST
+                  - PUT
+                origins:
+                  - '*'
         rid_3:
           type: CACHE
           name: cache
@@ -125,7 +138,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: magma-s3-prod
+            bucketName: inspirata-s3-prod
             versioningStatus: enabled
             public: true
         rid_3:
@@ -160,7 +173,7 @@ revolte:
           type: STORAGE_BUCKET
           name: storage_bucket_service
           configurations:
-            bucketName: magma-s3-preview
+            bucketName: inspirata-s3-preview
             versioningStatus: enabled
             public: true
         rid_3:
