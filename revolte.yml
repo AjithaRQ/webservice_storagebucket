@@ -60,7 +60,7 @@ revolte:
               CACHE_PASSWORD: '#{cache.cachePassword}'
           specifications:
             cpu: 2
-            memory: 2
+            memory: 4
             storage: 30
         rid_2:
           type: STORAGE_BUCKET
