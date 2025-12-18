@@ -1,7 +1,7 @@
 revolte:
   version: '1.0'
   project: AC Project
-  appName: s3-application
+  appName: appcheck
   env:
     staging:
       branch: cache-new
